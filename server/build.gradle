@@ -1,0 +1,58 @@
+buildscript {
+    repositories {
+        maven { url "http://repo.spring.io/libs-release" }
+        mavenLocal()
+        mavenCentral()
+    }
+    dependencies {
+        classpath 'org.springframework.boot:spring-boot-gradle-plugin:1.1.6.RELEASE'
+    }
+}
+
+apply plugin: 'java'
+apply plugin: 'idea'
+apply plugin: 'spring-boot'
+
+sourceCompatibility = 1.8
+targetCompatibility = 1.8
+
+jar {
+    baseName = 'bullet-zone-server'
+    version = '2.0'
+    manifest {
+        attributes 'Implementation-Title': 'Bullet Zone Server',
+                'Implementation-Version': version
+    }
+}
+
+repositories {
+    maven { url "http://repo.spring.io/libs-release" }
+    mavenLocal()
+    mavenCentral()
+}
+
+dependencies {
+    compile fileTree(include: ['*.jar'], dir: 'libs')
+    compile 'com.google.guava:guava:18.0'
+    compile('org.springframework.boot:spring-boot-starter-web:1.1.6.RELEASE') {
+        exclude(group: 'commons-logging', module: 'commons-logging')
+    }
+    compile('org.springframework.boot:spring-boot-starter:1.1.6.RELEASE') {
+        exclude(group: 'commons-logging', module: 'commons-logging')
+    }
+    compile('org.springframework.hateoas:spring-hateoas:0.16.0.RELEASE') {
+        exclude(group: 'commons-logging', module: 'commons-logging')
+    }
+    compile 'org.mockito:mockito-all:1.9.5'
+    compile 'junit:junit:4.+'
+    compile('org.springframework:spring-test:4.1.0.RELEASE') {
+        exclude(group: 'commons-logging', module: 'commons-logging')
+    }
+    compile 'com.jayway.jsonpath:json-path:0.9.1'
+    compile 'ch.qos.logback:logback-classic:1.1.2'
+    compile 'org.slf4j:jcl-over-slf4j:1.7.7'
+}
+
+task wrapper(type: Wrapper) {
+    gradleVersion = '2.1'
+}
